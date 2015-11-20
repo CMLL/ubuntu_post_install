@@ -6,6 +6,10 @@
 USER="cllamach"
 echo "Set the user for non administrative tasks: $USER"
 
+# Adding new repositories
+apt-add-repository -y "deb http://repository.spotify.com stable non-free"
+apt-add-repository -y ppa:webupd8team/sublime-text-3
+
 # Update and upgrade the system
 apt-get -y update
 apt-get -y upgrade
@@ -13,7 +17,8 @@ apt-get -y upgrade
 # Install available packages.
 apt-get -y install vim git mercurial vlc firefox chromium-browser htop \
     python-pip i3 zsh wget make build-essential libssl-dev zlib1g-dev \
-    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev
+    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+    spotify-client sublime-text-installer
 
 # Allowing user to change shell without password
 sed -i "5i # This allows user belonging to chsh group change shell without password."\
@@ -37,3 +42,15 @@ sudo -u $USER sh -c "$(wget https://raw.githubusercontent.com/yyuu/pyenv-install
 echo "PATH=\$HOME/.pyenv/bin:\$PATH" >> $HOME/.zshrc
 echo "eval \"\$(pyenv init -)\"" >> $HOME/.zshrc
 echo "eval \"\$(pyenv virtualenv-init -)\"" >> $HOME/.zshrc
+
+# Activating pyenv
+export PATH=$HOME/.pyenv/bin:$PATH
+eval $(pyenv init -)
+eval $(pyenv virtualenv-init -)
+
+# Updating pyenv
+pyenv update
+
+# Install pythons versions
+pyenv install 3.4.3
+pyenv install 2.7.9
