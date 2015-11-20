@@ -3,8 +3,16 @@
 # Bash Install Script to automatically configure a Ubuntu fresh install.
 
 # Get the current username for non administrator tasks
-USER="cllamach"
-echo "Set the user for non administrative tasks: $USER"
+echo "Input your username, please: "
+read USER
+
+# Checking if user exists...
+if id -u $USER > /dev/null 2>&1; then
+    echo "Set the user for non administrative tasks: $USER"
+else
+    echo "Can't find the username. Sorry. Exiting."
+    exit
+fi
 
 # Adding new repositories
 apt-add-repository -y "deb http://repository.spotify.com stable non-free"
